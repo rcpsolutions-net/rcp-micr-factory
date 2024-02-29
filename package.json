@@ -1,0 +1,28 @@
+{
+  "name": "rcp-micr-factory",
+  "version": "1.0.0",
+  "description": "convert ascii / numeric into png or jpeg image",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rcpsolutions-net/rcp-micr-factory.git"
+  },
+  "keywords": [
+    "micr",
+    "line",
+    "png"
+  ],
+  "author": "lham",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rcpsolutions-net/rcp-micr-factory/issues"
+  },
+  "homepage": "https://github.com/rcpsolutions-net/rcp-micr-factory#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
