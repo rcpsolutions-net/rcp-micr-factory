@@ -12,6 +12,18 @@ const loadFont = () => {
     }
 }
 
+const generateMICRLineJpeg = (checkNumber, routingNumber, accountNumber) => {
+    const canvas = createCanvas(700, 50);
+    const ctx = canvas.getContext('2d');
+
+    ctx.font = fontName
+
+    ctx.fillText(`C${checkNumber}C A${routingNumber}A   ${accountNumber}C`, 10, 25, 700);
+
+    return canvas.toBuffer('image/jpeg');
+};
+
+
 const generateMICRLinePng = (checkNumber, routingNumber, accountNumber) => {
     const canvas = createCanvas(700, 50);
     const ctx = canvas.getContext('2d');
@@ -28,31 +40,5 @@ loadFont();
 module.exports = {
     loadFont,
     generateMICRLinePng,
+    generateMICRLineJpeg
 }
-
-
-
-
-/*
-
-const fs = require('fs');
-
-const writePng = (buffer) => {
-    try {
-        fs.writeFileSync('./results.png', buffer);
-
-        console.log('PNG file written as results.png.');
-    }
-    catch(e) {
-        console.log(e);
-    }
-}
-
-const test = (checkNumber, routingNumber, accountNumber) => {
-    const buffer = generateMICRLinePng(checkNumber, routingNumber, accountNumber);
-
-    writePng(buffer);
-}
-
-test('08675309', '121000248', '4942658782');
-*/
