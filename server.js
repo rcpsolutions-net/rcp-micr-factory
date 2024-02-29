@@ -30,12 +30,12 @@ app.get('/micr-gen', (req, res) => {
 
         switch (contentType) {
             case 'image/jpeg':
-                buf = imageFactory.generateMICRLineJpeg(checkNumber, routingNumber, accountNumber);
+                buf = imageFactory.generateMICRLineImage(checkNumber, routingNumber, accountNumber, contentType);
 
                 break;
 
             default:
-                buf = imageFactory.generateMICRLinePng(checkNumber, routingNumber, accountNumber);
+                buf = imageFactory.generateMICRLineImage(checkNumber, routingNumber, accountNumber, defaults.contentType || 'image/png');
 
                 break;
         }
