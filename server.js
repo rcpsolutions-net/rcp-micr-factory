@@ -26,8 +26,6 @@ app.get('/micr-gen', (req, res) => {
     } else {
         let buf = null;
 
-        console.log('--- Generated MICR line image for check #: ', checkNumber);
-
         switch (contentType) {
             case 'image/jpeg':
                 buf = imageFactory.generateMICRLineImage(checkNumber, routingNumber, accountNumber, contentType);
@@ -35,10 +33,14 @@ app.get('/micr-gen', (req, res) => {
                 break;
 
             default:
-                buf = imageFactory.generateMICRLineImage(checkNumber, routingNumber, accountNumber, defaults.contentType || 'image/png');
+                if( !defaults.contentType ) defaults.contentType = 'image/png';
+
+                buf = imageFactory.generateMICRLineImage(checkNumber, routingNumber, accountNumber, defaults.contentType);
 
                 break;
         }
+
+        console.log(`--- ${buf.length} bytes of ${contentType} generated (check # ${checkNumber})`);
 
         res.set('Content-Type', contentType);
         res.set('Content-Size', buf.length);
