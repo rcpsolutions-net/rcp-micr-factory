@@ -1,13 +1,15 @@
 const express = require('express');
 
-const pngImageFactory = require('./micr-to-png'); // gonna make you sweat!
+const pngImageFactory = require('./micr-to-png'); 
 
 const app = express();
 
 const port = process.env.PORT || 3030;
 
-const defaultRoutingNumber = '121000248';    // use this default if no routing number is provided
-const defaultAccountNumber = '54942657528';  // use this default if no account number is provided
+const defaults = {
+    routingNumber: '121000248',    // number in string format
+    accountNumber: '54942657528',
+};
 
 app.get('/micr-gen', (req, res) => {
     let { checkNumber, routingNumber = defaultRoutingNumber, accountNumber = defaultAccountNumber } = req.query;

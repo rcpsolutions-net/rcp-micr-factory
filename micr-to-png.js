@@ -25,6 +25,14 @@ const generateMICRLinePng = (checkNumber, routingNumber, accountNumber) => {
 
 loadFont();
 
+module.exports = {
+    loadFont,
+    generateMICRLinePng,
+}
+
+
+
+
 /*
 
 const fs = require('fs');
@@ -48,9 +56,3 @@ const test = (checkNumber, routingNumber, accountNumber) => {
 
 test('08675309', '121000248', '4942658782');
 */
-
-module.exports = {
-    loadFont,
-    generateMICRLinePng,
-}
-
