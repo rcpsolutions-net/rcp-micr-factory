@@ -2,43 +2,39 @@
 
 const { createCanvas, registerFont } = require('canvas');
 
-const fontName = '18pt "MICR E13B"';
+const lastFontNameLoaded = null;
 
-const loadFont = () => {
+const loadFont = (fontFilename = 'micr-e13b.tff', fontFamily = 'E13B', fontName = '18pt "MICR E13B"') => {
     try {
-        registerFont('./fonts/micr-e13b.ttf', { family: 'E13B' });
+        registerFont(`./fonts/${fontFilename}`, { family: fontFamily });
+
+        lastFontNameLoaded = fontName;
     } catch(e) {
-        console.log(e)
+        console.log(e);
+
+        throw new Error('Error loading font');
     }
 }
 
-const generateMICRLineJpeg = (checkNumber, routingNumber, accountNumber) => {
+const generateMICRLineImage = (checkNumber, routingNumber, accountNumber, contentType = 'image/png') => {
     const canvas = createCanvas(700, 50);
     const ctx = canvas.getContext('2d');
 
-    ctx.font = fontName
+    ctx.font = lastFontNameLoaded;
 
-    ctx.fillText(`C${checkNumber}C A${routingNumber}A   ${accountNumber}C`, 10, 25, 700);
+    try {
+        ctx.fillText(`C${checkNumber}C A${routingNumber}A   ${accountNumber}C`, 10, 25, 700);
+    } catch(e) {
+        console.log(e)
+    }  
 
-    return canvas.toBuffer('image/jpeg');
+    return canvas.toBuffer(contentType);
 };
 
-
-const generateMICRLinePng = (checkNumber, routingNumber, accountNumber) => {
-    const canvas = createCanvas(700, 50);
-    const ctx = canvas.getContext('2d');
-
-    ctx.font = fontName
-
-    ctx.fillText(`C${checkNumber}C A${routingNumber}A   ${accountNumber}C`, 10, 25, 700);
-
-    return canvas.toBuffer('image/png');
-};
 
 loadFont();
 
 module.exports = {
     loadFont,
-    generateMICRLinePng,
-    generateMICRLineJpeg
+    generateMICRLineImage
 }
